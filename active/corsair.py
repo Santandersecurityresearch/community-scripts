@@ -1,6 +1,5 @@
 """
 This is an adaptation of Corsair Scan (https://github.com/Santandersecurityresearch/corsair_scan) as a ZAP active scan script.
-<<<<<<< HEAD
 This script will resend requests to all the sites being scanned in ZAP, injecting different origins. Then, it will read the value of Access-Control-Allow-Origin and based on that, it
 will assess if CORS is properly configured.
 """
@@ -10,18 +9,6 @@ alertDescription = "Cross Origin Resource Sharing (CORS) is misconfigured. \n"
 alertRisk = 2
 alertConfidence = 3
 alertSolution = "Configure CORS in a more restrictive way, to give access only the sites allowed to access your domain."
-=======
-This script will resend requests to all the sites captured in ZAP, injecting different origins. Then, it will read the value of Access-Control-Allow-Origin and based on that, it
-will assess if CORS is properly configured.
-"""
-
-import urlparse
-alertTitle = 'Corsair - CORS Misconfigured.'
-alertDescription = "Cross Origin Resource Sharing (CORS) is misconfigured. \n"
-alertRisk = 2
-alertReliability = 3
-alertSolution = "Configure CORS in a more restrictive way, whitelisting only the sites allowed to access to your domain."
->>>>>>> 9190a8248eea1861bdbdf9b5a9f80c15945ff184
 alertInfo = "Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any other origins (domain, scheme, or port) than its own from which a browser should permit loading of resources."
 cweID = 942
 wascID = 14
