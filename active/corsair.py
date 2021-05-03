@@ -47,7 +47,7 @@ def cors_scan(sas,msg, test_type):
   if (header in ['null', '*', msg.getRequestHeader().getHeader('Origin')]):
     alertParam = "Test performed: Injecting a "+test_type
     sas.raiseAlert(alertRisk, alertConfidence, alertTitle, alertDescription + alertParam,  msg.getRequestHeader().getURI().toString(), "Origin",
-       "Origin set as " + msg.getRequestHeader().getHeader('Origin'), alertInfo, alertSolution, msg.getRequestHeader().getHeader('Origin'), cweID, wascID, msg);
+       msg.getRequestHeader().getHeader('Origin'), alertInfo, alertSolution, msg.getRequestHeader().getHeader('Origin'), cweID, wascID, msg);
 
 def scan(sas, msg, param, value):
   pass
