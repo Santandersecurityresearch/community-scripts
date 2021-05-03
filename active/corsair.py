@@ -1,5 +1,16 @@
 """
 This is an adaptation of Corsair Scan (https://github.com/Santandersecurityresearch/corsair_scan) as a ZAP active scan script.
+<<<<<<< HEAD
+This script will resend requests to all the sites being scanned in ZAP, injecting different origins. Then, it will read the value of Access-Control-Allow-Origin and based on that, it
+will assess if CORS is properly configured.
+"""
+import urlparse
+alertTitle = 'Corsair - CORS Misconfigured'
+alertDescription = "Cross Origin Resource Sharing (CORS) is misconfigured. \n"
+alertRisk = 2
+alertConfidence = 3
+alertSolution = "Configure CORS in a more restrictive way, to give access only the sites allowed to access your domain."
+=======
 This script will resend requests to all the sites captured in ZAP, injecting different origins. Then, it will read the value of Access-Control-Allow-Origin and based on that, it
 will assess if CORS is properly configured.
 """
@@ -10,13 +21,14 @@ alertDescription = "Cross Origin Resource Sharing (CORS) is misconfigured. \n"
 alertRisk = 2
 alertReliability = 3
 alertSolution = "Configure CORS in a more restrictive way, whitelisting only the sites allowed to access to your domain."
+>>>>>>> 9190a8248eea1861bdbdf9b5a9f80c15945ff184
 alertInfo = "Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to indicate any other origins (domain, scheme, or port) than its own from which a browser should permit loading of resources."
 cweID = 942
 wascID = 14
 
-SM_ORIGIN = 'https://scarymonster.com'
-SM_ORIGIN_NO_PROTOCOL = 'scarymonster.com'
-SM_ORIGIN_DOMAIN = 'scarymonster'
+SM_ORIGIN = 'https://example.com'
+SM_ORIGIN_NO_PROTOCOL = 'example.com'
+SM_ORIGIN_DOMAIN = 'example'
 
 """
 In this method, we read the request performed and create a new request with a fake origin. Also, if the request already contains an origin header, we perform two extra requests:
@@ -47,7 +59,7 @@ def cors_scan(sas,msg, test_type):
   header = str(msg.getResponseHeader().getHeader("Access-Control-Allow-Origin"))
   if (header in ['null', '*', msg.getRequestHeader().getHeader('Origin')]):
     alertParam = "Test performed: Injecting a "+test_type
-    sas.raiseAlert(alertRisk, alertReliability, alertTitle, alertDescription + alertParam,  msg.getRequestHeader().getURI().toString(), "Origin",
+    sas.raiseAlert(alertRisk, alertConfidence, alertTitle, alertDescription + alertParam,  msg.getRequestHeader().getURI().toString(), "Origin",
        "Origin set as " + msg.getRequestHeader().getHeader('Origin'), alertInfo, alertSolution, header + " returned in Access-Control-Allow-Origin header", cweID, wascID, msg);
 
 def scan(sas, msg, param, value):
